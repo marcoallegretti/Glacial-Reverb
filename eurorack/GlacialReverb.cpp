@@ -187,13 +187,11 @@ void  GlacialReverb::process ()
       default: break;
       }
 
-      float b = 1.f;
-      if (room_variant > 0)
-      {
-         float t = std::fmod (led_s, 1.8f);
-         if (t < float (room_variant) * 0.34f)
-            b = (std::fmod (t, 0.34f) < 0.17f) ? 0.2f : 1.f;
-      }
+      // variant = shade of the family colour, flagship brightest. Scaling keeps the
+      // hue, so the family stays readable. LED response is ~gamma 2.2, so these are
+      // spaced to look like even steps rather than being even numbers.
+      static constexpr float SHADE [3] = { 1.f, 0.40f, 0.16f };
+      float b = SHADE [room_variant];
       ui.fx_led.on (ColorRgb {col.r * b, col.g * b, col.b * b});
    }
 
