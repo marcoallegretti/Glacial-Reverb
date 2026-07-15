@@ -35,8 +35,9 @@ public:
 
    StereoFrame    process (StereoFrame in) override
    {
+      // untrimmed the tank peaked 1.62 and hard-clipped the wrapper limiter
       auto o = _rev.process ({ in.left, in.right });
-      return { o.left, o.right };
+      return { o.left * 0.77f, o.right * 0.77f };
    }
 
 private:

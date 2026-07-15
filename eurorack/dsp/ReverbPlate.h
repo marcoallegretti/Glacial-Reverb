@@ -170,7 +170,9 @@ inline StereoFrame ReverbPlate::process (StereoFrame in)
             - _rd2.read (int(0.31f*_l_rd2)) + _ld1.read (int(0.50f*_l_ld1))
             - _ld2.read (int(0.17f*_l_ld2)) + _ld2.read (int(0.71f*_l_ld2));
 
-   return { yl * 0.6f, yr * 0.6f };
+   // 6 taps sum, so this runs ~4x hotter than the other models: at 0.6 it peaked
+   // 2.52 and hard-clipped the wrapper limiter on every transient
+   return { yl * 0.3f, yr * 0.3f };
 }
 
 }  // namespace dsp

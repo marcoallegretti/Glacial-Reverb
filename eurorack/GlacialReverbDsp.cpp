@@ -15,12 +15,20 @@
 
 namespace {
 
-// bounds the wet path so no model x tail x amount can clip
+// Bounds the wet path so no model x tail x amount can clip. Thresholded: the
+// old curve was a static cubic with no threshold, so it distorted every model at
+// every level (~2% THD on an ordinary tail) and left no clean voice available.
+// Below 0.9 this is bit-transparent; 0.9..1.1 is a C1 knee (unit slope at 0.9,
+// zero at 1.1) that reaches the 1.0 ceiling and hard-bounds beyond it.
 inline float soft_wet (float x)
 {
-   if (x < -1.5f) return -1.f;
-   if (x >  1.5f) return  1.f;
-   return x - x * x * x * (1.f / 6.75f);
+   const float t = 0.9f;
+   float a = std::fabs (x);
+   if (a <= t) return x;
+   if (a >= 1.1f) return (x < 0.f) ? -1.f : 1.f;
+   float u = a - t;
+   float y = t + u - u * u * 2.5f;
+   return (x < 0.f) ? -y : y;
 }
 
 }  // namespace
