@@ -73,6 +73,9 @@ GlacialReverbDsp::GlacialReverbDsp (float sample_freq)
    }
    _pre_delay_write_pos = 0;
    _pre_delay_spl = 1.f;
+
+   _duck_atk = 1.f - std::exp (-1.f / (_sample_freq * 0.005f));
+   _duck_rel = 1.f - std::exp (-1.f / (_sample_freq * 0.250f));
 }
 
 GlacialReverbDsp::~GlacialReverbDsp ()
@@ -329,27 +332,25 @@ void  GlacialReverbDsp::process (float * const out [], const float * const in []
       live.left  += _tail_xfade * (tail.left  - live.left);
       live.right += _tail_xfade * (tail.right - live.right);
 
-      float side_l = dry_l + live.left;
-      float side_r = dry_r + live.right;
-      float abs_l  = std::fabs (side_l);
-      float abs_r  = std::fabs (side_r);
+      // key off the dry input only: including the tail makes the reverb duck
+      // itself and hold down for the whole decay
+      float abs_l  = std::fabs (dry_l);
+      float abs_r  = std::fabs (dry_r);
       float level  = (abs_l > abs_r) ? abs_l : abs_r;
-      const float attack  = 0.02f;
-      const float release = 0.002f;
-      if (level > _duck_env) _duck_env += attack  * (level - _duck_env);
-      else                   _duck_env += release * (level - _duck_env);
+      if (level > _duck_env) _duck_env += _duck_atk * (level - _duck_env);
+      else                   _duck_env += _duck_rel * (level - _duck_env);
+
+      // DUCK is the depth; the envelope only gates it, so the pot stays usable
+      // over its whole travel instead of saturating
+      float duck_drive = _duck_env * 3.f;
+      if (duck_drive > 1.f) duck_drive = 1.f;
+      const float duck_reduction = _duck * 0.95f * duck_drive;
 
       float frozen_in_gain = static_cast <float> (_frozen_input_gain);
       auto rv_frozen = _reverb_frozen.process ({ pd_l * frozen_in_gain, pd_r * frozen_in_gain });
 
       float frozen_out_gain = _frozen_out_cur;
-      float frozen_duck_gain = 1.f;
-      if (_freeze && _duck > 0.f)
-      {
-         float reduction = _duck * _duck_env * 4.f;
-         if (reduction > 0.98f) reduction = 0.98f;
-         frozen_duck_gain = 1.f - reduction;
-      }
+      float frozen_duck_gain = (_freeze && _duck > 0.f) ? 1.f - duck_reduction : 1.f;
       rv_frozen.left  *= frozen_out_gain * frozen_duck_gain;
       rv_frozen.right *= frozen_out_gain * frozen_duck_gain;
 
@@ -361,12 +362,7 @@ void  GlacialReverbDsp::process (float * const out [], const float * const in []
       float wet_gain = static_cast <float> (_wet);
       float dry_gain = 1.f;
 
-      if (_duck > 0.f)
-      {
-         float wet_reduction = _duck * _duck_env * 4.f;
-         if (wet_reduction > 0.98f) wet_reduction = 0.98f;
-         wet_gain *= 1.f - wet_reduction;
-      }
+      if (_duck > 0.f) wet_gain *= 1.f - duck_reduction;
 
       out_left  [i] = dry_gain * dry_l + wet_gain * wet_l;
       out_right [i] = dry_gain * dry_r + wet_gain * wet_r;

@@ -82,6 +82,8 @@ private:
    bool          _tank_enabled = true;
    float         _duck         = 0.f;
    float         _duck_env     = 0.f;
+   float         _duck_atk     = 0.f;
+   float         _duck_rel     = 0.f;
    float         _freeze_hold_s = 0.f;
 
    float         _fx_param     = 0.f;
