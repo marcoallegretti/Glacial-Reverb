@@ -57,7 +57,8 @@ public:
       _phase_r += _inc * 0.981f; if (_phase_r >= 1.f) _phase_r -= 1.f;
       if (++_wp >= N) _wp = 0;
 
-      // octave-down feedback must not accumulate sub-bass/DC
+      // load-bearing: without it the grain feedback pushes loop DC gain over 1
+      // and the tank latches to a DC rail at high FX/DECAY. Do not remove.
       float hl = sl - _hx_l + 0.9985f * _hp_l; _hx_l = sl; _hp_l = hl;
       float hr = sr - _hx_r + 0.9985f * _hp_r; _hx_r = sr; _hp_r = hr;
       _lp_l += 0.4f * (hl - _lp_l);

@@ -35,7 +35,9 @@ public:
    {
       _tank.reset ();
       auto & B = *_buf; B.l.fill (0.f); B.r.fill (0.f);
-      _wp = 0; _phase = 0.f; _phase_r = 0.5f; _fb_l = _fb_r = _lp_l = _lp_r = 0.f;
+      _wp = 0; _phase = 0.f; _phase_r = 0.5f;
+      _fb_l = _fb_r = _lp_l = _lp_r = 0.f;
+      _hp_l = _hp_r = _hx_l = _hx_r = 0.f;
    }
 
    StereoFrame    process (StereoFrame in) override
@@ -56,9 +58,14 @@ public:
       _phase_r += _inc * 0.981f; if (_phase_r >= 1.f) _phase_r -= 1.f;
       if (++_wp >= N) _wp = 0;
 
+      // load-bearing: without it the grain feedback pushes loop DC gain over 1
+      // and the tank latches to a DC rail at high FX/DECAY. Do not remove.
+      float hl = sl - _hx_l + 0.9985f * _hp_l; _hx_l = sl; _hp_l = hl;
+      float hr = sr - _hx_r + 0.9985f * _hp_r; _hx_r = sr; _hp_r = hr;
+
       // lowpass + soft-clip keep the loop gain < 1
-      _lp_l += 0.35f * (sl - _lp_l);
-      _lp_r += 0.35f * (sr - _lp_r);
+      _lp_l += 0.35f * (hl - _lp_l);
+      _lp_r += 0.35f * (hr - _lp_r);
       _fb_l = soft (_lp_l);
       _fb_r = soft (_lp_r);
 
@@ -107,6 +114,7 @@ private:
    float          _len = 0.f, _inc = 0.f, _phase = 0.f, _phase_r = 0.5f;
    int            _wp = 0;
    float          _fb_l = 0.f, _fb_r = 0.f, _lp_l = 0.f, _lp_r = 0.f;
+   float          _hp_l = 0.f, _hp_r = 0.f, _hx_l = 0.f, _hx_r = 0.f;
 };
 
 inline ReverbShimmer::ReverbShimmer (float sample_freq)
