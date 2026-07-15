@@ -44,7 +44,9 @@ public:
       float wr = svf (_l1r, _b1r, in.right, coef (f1r)) * 0.9f
                + svf (_l2r, _b2r, in.right, coef (f2r)) * 0.7f;
 
-      float g = _amount * 1.4f;
+      // the two resonators are near self-oscillation at low q, so 1.4 put this
+      // +10 dB above every other tail and slammed the wrapper limiter
+      float g = _amount * 0.35f;
       return { in.left + g * wl, in.right + g * wr };
    }
 
