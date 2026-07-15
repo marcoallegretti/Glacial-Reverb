@@ -49,6 +49,7 @@ GlacialReverbDsp::GlacialReverbDsp (float sample_freq)
 ,  _spring_disp (sample_freq)
 ,  _plate_modal (sample_freq)
 ,  _plate_disp (sample_freq)
+,  _chamber (sample_freq)
 ,  _tail_reso (sample_freq)
 ,  _tail_pitch (sample_freq)
 ,  _tail_chorus (sample_freq)
@@ -168,6 +169,7 @@ dsp::ReverbModel *   GlacialReverbDsp::model_for_id (int id)
    case 8:  return &_spring_disp;
    case 9:  return &_plate_modal;
    case 10: return &_plate_disp;
+   case 11: return &_chamber;
    default: return &_hall;
    }
 }

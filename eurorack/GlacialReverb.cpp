@@ -15,16 +15,17 @@
 
 namespace {
 
-// family -> model id
+// family -> model id. 3 variants is the ceiling: the LED shows a variant as a
+// shade of the family colour and a 4th step is not readable against off.
 constexpr int ROOM_MODEL [6][3] = {
-   { 0,  0,  0 },   // Hall
+   { 0, 11,  0 },   // Hall    : hall, chamber (early reflections)
    { 1,  9, 10 },   // Plate   : Dattorro, Modal, Dispersive
    { 5,  7,  8 },   // Spring  : classic,  Modal, Dispersive
    { 2,  6,  2 },   // Shimmer : up, Abyss (down)
    { 3,  3,  3 },   // Cloud
    { 4,  4,  4 },   // Ambient
 };
-constexpr int ROOM_VCOUNT [6] = { 1, 3, 3, 2, 1, 1 };
+constexpr int ROOM_VCOUNT [6] = { 2, 3, 3, 2, 1, 1 };
 
 // family -> tail id
 constexpr int FX_TAIL [5][3] = {

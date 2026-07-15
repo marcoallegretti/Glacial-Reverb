@@ -4,7 +4,7 @@ A 12 HP Eurorack stereo reverb built on a Daisy Patch SM mounted on a kivu12
 carrier board, using the [eurorack-blocks](https://github.com/ohmtech-rdi/eurorack-blocks)
 framework.
 
-Eleven reverb voices grouped into six families, ten post-reverb tail effects
+Twelve reverb voices grouped into six families, ten post-reverb tail effects
 grouped into five families, and a freeze pad with ducking.
 
 ## Rooms
@@ -14,12 +14,19 @@ long press cycles the variant within it (RGB brightness dips = variant number).
 
 | Family  | Colour  | Variants                          |
 |---------|---------|-----------------------------------|
-| Hall    | blue    | FDN tank                          |
+| Hall    | blue    | FDN tank � chamber                |
 | Plate   | green   | Dattorro · modal · dispersive     |
 | Spring  | cyan    | classic · modal · dispersive      |
 | Shimmer | yellow  | octave up · octave down (Abyss)   |
 | Cloud   | magenta | granular over an FDN tank         |
 | Ambient | red     | modulated Hadamard FDN            |
+
+Three variants per family is the ceiling: the LED renders a variant as a shade
+of the family colour, and a fourth step is not readable against off.
+
+The chamber runs a Moorer early-reflection tap bank and feeds the tank from the
+taps rather than from the input, so each tap seeds the tank and the density
+builds without the reflections reading as discrete echoes.
 
 The modal springs/plates are resonator banks at the physical eigenmodes; the
 dispersive ones use stretched-allpass chains for the characteristic chirp.

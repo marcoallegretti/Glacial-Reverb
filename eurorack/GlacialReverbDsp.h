@@ -23,6 +23,7 @@
 #include "dsp/ReverbSpringDisp.h"
 #include "dsp/ReverbPlateModal.h"
 #include "dsp/ReverbPlateDisp.h"
+#include "dsp/ReverbChamber.h"
 
 #include "dsp/TailFx.h"
 #include "dsp/TailFxResonator.h"
@@ -64,7 +65,7 @@ public:
 
    void  process (float * const out [], const float * const in [], std::size_t size);
 
-   static constexpr int nbr_models  = 11;  // +2 springs (modal, disp) +2 plates (modal, disp)
+   static constexpr int nbr_models  = 12;  // 6 families, 12 voices
    static constexpr int nbr_tail_fx = 10;  // +Reverse, Chord, Formant
 
 
@@ -113,6 +114,7 @@ private:
    dsp::ReverbSpringDisp  _spring_disp;
    dsp::ReverbPlateModal  _plate_modal;
    dsp::ReverbPlateDisp   _plate_disp;
+   dsp::ReverbChamber     _chamber;
    dsp::ReverbModel * _active_model = nullptr;
    dsp::ReverbModel * _prev_model   = nullptr;   // rendered until _model_xfade hits 1
 

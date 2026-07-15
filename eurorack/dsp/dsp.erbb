@@ -39,6 +39,7 @@ sources {
    file "ReverbSpringDisp.h"
    file "ReverbPlateModal.h"
    file "ReverbPlateDisp.h"
+   file "ReverbChamber.h"
    file "TailFx.h"
    file "TailFxResonator.h"
    file "TailFxPitch.h"
