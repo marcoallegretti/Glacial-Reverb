@@ -345,6 +345,14 @@ void  GlacialReverbDsp::process (float * const out [], const float * const in []
       float duck_drive = _duck_env * 3.f;
       if (duck_drive > 1.f) duck_drive = 1.f;
       const float duck_reduction = _duck * 0.95f * duck_drive;
+      // Eurorack inputs are DC-coupled and every model's damper has unity DC
+      // gain, so any input offset is integrated by the tank until the wet path
+      // rails. Block it on the wet feed only; the dry stays a passthrough.
+      float dc_l = pd_l - _dc_x_l + 0.9985f * _dc_y_l; _dc_x_l = pd_l; _dc_y_l = dc_l;
+      float dc_r = pd_r - _dc_x_r + 0.9985f * _dc_y_r; _dc_x_r = pd_r; _dc_y_r = dc_r;
+      pd_l = dc_l;
+      pd_r = dc_r;
+
 
       float frozen_in_gain = static_cast <float> (_frozen_input_gain);
       auto rv_frozen = _reverb_frozen.process ({ pd_l * frozen_in_gain, pd_r * frozen_in_gain });

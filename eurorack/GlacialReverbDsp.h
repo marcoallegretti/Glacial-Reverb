@@ -138,6 +138,8 @@ private:
    dsp::ReverbModel * model_for_id (int id);
    dsp::TailFx *      tail_for_id (int id);
 
+   float         _dc_x_l = 0.f, _dc_x_r = 0.f, _dc_y_l = 0.f, _dc_y_r = 0.f;
+
                GlacialReverbDsp () = delete;
                GlacialReverbDsp (const GlacialReverbDsp & rhs) = delete;
                GlacialReverbDsp (GlacialReverbDsp && rhs) = delete;
