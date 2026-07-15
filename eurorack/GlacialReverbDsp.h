@@ -90,6 +90,7 @@ private:
    float         _tail_amount  = 0.f;
    float         _model_xfade  = 1.f;
    float         _tail_xfade   = 1.f;
+   float         _xfade_inc    = 0.f;
    int           _model_id     = 0;
    int           _tail_id      = 0;
 
@@ -113,6 +114,7 @@ private:
    dsp::ReverbPlateModal  _plate_modal;
    dsp::ReverbPlateDisp   _plate_disp;
    dsp::ReverbModel * _active_model = nullptr;
+   dsp::ReverbModel * _prev_model   = nullptr;   // rendered until _model_xfade hits 1
 
    dsp::TailFxNone      _tail_none;
    dsp::TailFxResonator _tail_reso;
@@ -125,6 +127,7 @@ private:
    dsp::TailFxChord     _tail_chord;
    dsp::TailFxFormant   _tail_formant;
    dsp::TailFx *        _active_tail = nullptr;
+   dsp::TailFx *        _prev_tail   = nullptr;   // rendered until _tail_xfade hits 1
 
    dsp::ReverbSc _reverb_frozen;
 
@@ -135,10 +138,10 @@ private:
    float         _pre_delay_max_spl = 0.f;
    float         _pre_delay_spl = 1.f;
 
+   float         _dc_x_l = 0.f, _dc_x_r = 0.f, _dc_y_l = 0.f, _dc_y_r = 0.f;
+
    dsp::ReverbModel * model_for_id (int id);
    dsp::TailFx *      tail_for_id (int id);
-
-   float         _dc_x_l = 0.f, _dc_x_r = 0.f, _dc_y_l = 0.f, _dc_y_r = 0.f;
 
                GlacialReverbDsp () = delete;
                GlacialReverbDsp (const GlacialReverbDsp & rhs) = delete;

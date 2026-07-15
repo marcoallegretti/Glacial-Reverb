@@ -84,6 +84,10 @@ GlacialReverbDsp::GlacialReverbDsp (float sample_freq)
 
    _duck_atk = 1.f - std::exp (-1.f / (_sample_freq * 0.005f));
    _duck_rel = 1.f - std::exp (-1.f / (_sample_freq * 0.250f));
+
+   // the ramp has to outlast the incoming model's build-up, or the outgoing tail
+   // is retired before there is anything to hand over to and the wet still dips
+   _xfade_inc = 1.f / (_sample_freq * 0.150f);
 }
 
 GlacialReverbDsp::~GlacialReverbDsp ()
@@ -174,11 +178,20 @@ void  GlacialReverbDsp::set_fx_type (int fx_index)
    if (fx_index >= nbr_models) fx_index = nbr_models - 1;
    if (fx_index == _model_id) return;
 
+   dsp::ReverbModel * incoming = model_for_id (fx_index);
+
+   // switching again mid-fade strands the outgoing voice un-cleared. Retire it
+   // here, unless it is the one coming back: then its tail is still live and
+   // reusing it is what makes an A->B->A flick sound continuous.
+   if (_prev_model && _prev_model != incoming) _prev_model->reset ();
+
+   _prev_model = (_active_model == incoming) ? nullptr : _active_model;
    _model_id = fx_index;
    _model_xfade = 0.f;
 
-   _active_model = model_for_id (fx_index);
-   _active_model->reset ();
+   // no reset here: voices are cleared on retirement, so the incoming one is
+   // already clear and re-zeroing it would only blow the block deadline
+   _active_model = incoming;
    _active_model->set_decay (_decay);
    _active_model->set_macro (_fx_param);
 }
@@ -206,11 +219,15 @@ void  GlacialReverbDsp::set_tail_fx (int tail_index)
    if (tail_index >= nbr_tail_fx) tail_index = nbr_tail_fx - 1;
    if (tail_index == _tail_id) return;
 
+   dsp::TailFx * incoming = tail_for_id (tail_index);
+
+   if (_prev_tail && _prev_tail != incoming) _prev_tail->reset ();
+
+   _prev_tail = (_active_tail == incoming) ? nullptr : _active_tail;
    _tail_id = tail_index;
    _tail_xfade = 0.f;
 
-   _active_tail = tail_for_id (tail_index);
-   _active_tail->reset ();
+   _active_tail = incoming;
    _active_tail->set_amount (_tail_amount);
 }
 
@@ -292,9 +309,9 @@ void  GlacialReverbDsp::process (float * const out [], const float * const in []
          _frozen_out_cur += fo_coeff * (_frozen_out_target - _frozen_out_cur);
       }
 
-      _model_xfade += 0.0015f;
+      _model_xfade += _xfade_inc;
       if (_model_xfade > 1.f) _model_xfade = 1.f;
-      _tail_xfade += 0.0015f;
+      _tail_xfade += _xfade_inc;
       if (_tail_xfade > 1.f) _tail_xfade = 1.f;
 
       float dry_l = in_left  [i];
@@ -328,17 +345,40 @@ void  GlacialReverbDsp::process (float * const out [], const float * const in []
       float pd_l = read_pre_delay (_pre_delay_buf_l, _pre_delay_spl);
       float pd_r = read_pre_delay (_pre_delay_buf_r, _pre_delay_spl);
 
+      // Eurorack inputs are DC-coupled and every model's damper has unity DC
+      // gain, so any input offset is integrated by the tank until the wet path
+      // rails. Block it on the wet feed only; the dry stays a passthrough.
+      float dc_l = pd_l - _dc_x_l + 0.9985f * _dc_y_l; _dc_x_l = pd_l; _dc_y_l = dc_l;
+      float dc_r = pd_r - _dc_x_r + 0.9985f * _dc_y_r; _dc_x_r = pd_r; _dc_y_r = dc_r;
+      pd_l = dc_l;
+      pd_r = dc_r;
+
       ++_pre_delay_write_pos;
       if (_pre_delay_write_pos >= _pre_delay_buf_size) _pre_delay_write_pos = 0;
 
       float live_in_gain = static_cast <float> (_tank_inject_gain);
-      dsp::StereoFrame live = _active_model->process ({ pd_l * live_in_gain, pd_r * live_in_gain });
-      live.left  *= _model_xfade;
-      live.right *= _model_xfade;
+      dsp::StereoFrame mdl_in { pd_l * live_in_gain, pd_r * live_in_gain };
+      dsp::StereoFrame live = _active_model->process (mdl_in);
+
+      // keep rendering the outgoing model across the ramp: fading in the new one
+      // alone would delete the tail, since a just-retired model is silent
+      if (_prev_model)
+      {
+         dsp::StereoFrame old = _prev_model->process (mdl_in);
+         live.left  = old.left  + _model_xfade * (live.left  - old.left);
+         live.right = old.right + _model_xfade * (live.right - old.right);
+         if (_model_xfade >= 1.f) { _prev_model->reset (); _prev_model = nullptr; }
+      }
 
       dsp::StereoFrame tail = _active_tail->process (live);   // post-model tail effect
-      live.left  += _tail_xfade * (tail.left  - live.left);
-      live.right += _tail_xfade * (tail.right - live.right);
+      if (_prev_tail)
+      {
+         dsp::StereoFrame old = _prev_tail->process (live);
+         tail.left  = old.left  + _tail_xfade * (tail.left  - old.left);
+         tail.right = old.right + _tail_xfade * (tail.right - old.right);
+         if (_tail_xfade >= 1.f) { _prev_tail->reset (); _prev_tail = nullptr; }
+      }
+      live = tail;
 
       // key off the dry input only: including the tail makes the reverb duck
       // itself and hold down for the whole decay
@@ -353,14 +393,6 @@ void  GlacialReverbDsp::process (float * const out [], const float * const in []
       float duck_drive = _duck_env * 3.f;
       if (duck_drive > 1.f) duck_drive = 1.f;
       const float duck_reduction = _duck * 0.95f * duck_drive;
-      // Eurorack inputs are DC-coupled and every model's damper has unity DC
-      // gain, so any input offset is integrated by the tank until the wet path
-      // rails. Block it on the wet feed only; the dry stays a passthrough.
-      float dc_l = pd_l - _dc_x_l + 0.9985f * _dc_y_l; _dc_x_l = pd_l; _dc_y_l = dc_l;
-      float dc_r = pd_r - _dc_x_r + 0.9985f * _dc_y_r; _dc_x_r = pd_r; _dc_y_r = dc_r;
-      pd_l = dc_l;
-      pd_r = dc_r;
-
 
       float frozen_in_gain = static_cast <float> (_frozen_input_gain);
       auto rv_frozen = _reverb_frozen.process ({ pd_l * frozen_in_gain, pd_r * frozen_in_gain });

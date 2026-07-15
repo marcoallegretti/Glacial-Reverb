@@ -59,8 +59,9 @@ added over the untouched tail, so amount 0 is a true bypass.
 | OUT L/R   | Audio out                                                       |
 
 CV drives continuous character; the buttons handle discrete structure. Room and
-effect selection is deliberately not CV-addressed — switching models crossfades
-and resets state, so only trigger-paced stepping stays artefact-free.
+effect selection step discretely rather than sweeping: a switch renders both
+voices through a 150 ms crossfade and clears the outgoing one only once it is
+silent, so the tail carries across and the ROOM trigger can be clocked.
 
 ## Layout
 
