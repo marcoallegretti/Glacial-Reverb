@@ -77,7 +77,9 @@ private:
 
    float          read_frac (const std::array<float,MAIN> & b, float delay) const
    {
-      float rp = float (_wp) - delay;
+      // mask before the float: a free-running _wp loses fractional delay
+      // resolution once it exceeds the 24-bit mantissa (dead by ~174 s)
+      float rp = float (_wp & MMASK) - delay;
       while (rp < 0.f) rp += float (MAIN);
       int i1 = int (rp) & int (MMASK); float f = rp - std::floor (rp);
       int i0 = (i1 - 1) & int (MMASK), i2 = (i1 + 1) & int (MMASK), i3 = (i1 + 2) & int (MMASK);

@@ -124,7 +124,9 @@ private:
 
    float          read (const std::array<float,D> & b, float delay) const
    {
-      float rp = float (_wp) - delay;
+      // mask before the float: a free-running _wp loses fractional delay
+      // resolution once it exceeds the 24-bit mantissa (dead by ~174 s)
+      float rp = float (_wp & DMASK) - delay;
       while (rp < 0.f) rp += float (D);
       int i1 = int (rp) & int (DMASK); float f = rp - std::floor (rp);
       int i0 = (i1 - 1) & int (DMASK), i2 = (i1 + 1) & int (DMASK), i3 = (i1 + 2) & int (DMASK);
