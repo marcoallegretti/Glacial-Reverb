@@ -1,0 +1,52 @@
+/*****************************************************************************
+
+     Local dsp.erbb for GlacialReverb
+
+*Tab=3***********************************************************************/
+
+base "."
+
+sources {
+   file "Filter2Poles.cpp"
+   file "Filter2Poles.h"
+   file "Filter2Poles.hpp"
+   file "GainRamp.cpp"
+   file "GainRamp.h"
+   file "GainRamp.hpp"
+   file "KarplusResonator.cpp"
+   file "KarplusResonator.h"
+   file "KarplusResonator.hpp"
+   file "GrainEngine.cpp"
+   file "GrainEngine.h"
+   file "GrainEngine.hpp"
+   file "Flanger.cpp"
+   file "Flanger.h"
+   file "Flanger.hpp"
+   file "DropletDelay.cpp"
+   file "DropletDelay.h"
+   file "DropletDelay.hpp"
+   file "ReverbSc.cpp"
+   file "ReverbSc.h"
+   file "ReverbModel.h"
+   file "ReverbHall.h"
+   file "ReverbPlate.h"
+   file "ReverbShimmer.h"
+   file "ReverbCloud.h"
+   file "ReverbAmbient.h"
+   file "ReverbSpring.h"
+   file "ReverbAbyss.h"
+   file "ReverbSpringModal.h"
+   file "ReverbSpringDisp.h"
+   file "ReverbPlateModal.h"
+   file "ReverbPlateDisp.h"
+   file "TailFx.h"
+   file "TailFxResonator.h"
+   file "TailFxPitch.h"
+   file "TailFxChorus.h"
+   file "TailFxGranular.h"
+   file "TailFxDroplet.h"
+   file "TailFxSub.h"
+   file "TailFxReverse.h"
+   file "TailFxChord.h"
+   file "TailFxFormant.h"
+}
