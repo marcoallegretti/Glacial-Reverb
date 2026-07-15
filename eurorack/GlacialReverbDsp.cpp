@@ -45,9 +45,9 @@ GlacialReverbDsp::GlacialReverbDsp (float sample_freq)
 ,  _ambient (sample_freq)
 ,  _spring (sample_freq)
 ,  _abyss (sample_freq)
-,  _spring_modal (sample_freq)
+,  _spring_tank (sample_freq)
 ,  _spring_disp (sample_freq)
-,  _plate_modal (sample_freq)
+,  _plate_vintage (sample_freq)
 ,  _plate_disp (sample_freq)
 ,  _chamber (sample_freq)
 ,  _tail_reso (sample_freq)
@@ -165,9 +165,9 @@ dsp::ReverbModel *   GlacialReverbDsp::model_for_id (int id)
    case 4:  return &_ambient;
    case 5:  return &_spring;
    case 6:  return &_abyss;
-   case 7:  return &_spring_modal;
+   case 7:  return &_spring_tank;
    case 8:  return &_spring_disp;
-   case 9:  return &_plate_modal;
+   case 9:  return &_plate_vintage;
    case 10: return &_plate_disp;
    case 11: return &_chamber;
    default: return &_hall;

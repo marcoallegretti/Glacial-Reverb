@@ -19,9 +19,9 @@
 #include "dsp/ReverbAmbient.h"
 #include "dsp/ReverbSpring.h"
 #include "dsp/ReverbAbyss.h"
-#include "dsp/ReverbSpringModal.h"
+#include "dsp/ReverbSpringTank.h"
 #include "dsp/ReverbSpringDisp.h"
-#include "dsp/ReverbPlateModal.h"
+#include "dsp/ReverbPlateVintage.h"
 #include "dsp/ReverbPlateDisp.h"
 #include "dsp/ReverbChamber.h"
 
@@ -110,9 +110,9 @@ private:
    dsp::ReverbAmbient _ambient;
    dsp::ReverbSpring  _spring;
    dsp::ReverbAbyss   _abyss;
-   dsp::ReverbSpringModal _spring_modal;
+   dsp::ReverbSpringTank  _spring_tank;
    dsp::ReverbSpringDisp  _spring_disp;
-   dsp::ReverbPlateModal  _plate_modal;
+   dsp::ReverbPlateVintage _plate_vintage;
    dsp::ReverbPlateDisp   _plate_disp;
    dsp::ReverbChamber     _chamber;
    dsp::ReverbModel * _active_model = nullptr;

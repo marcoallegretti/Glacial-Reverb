@@ -14,9 +14,9 @@ long press cycles the variant within it (RGB brightness dips = variant number).
 
 | Family  | Colour  | Variants                          |
 |---------|---------|-----------------------------------|
-| Hall    | blue    | FDN tank � chamber                |
-| Plate   | green   | Dattorro · modal · dispersive     |
-| Spring  | cyan    | classic · modal · dispersive      |
+| Hall    | blue    | FDN tank · chamber                |
+| Plate   | green   | Dattorro · vintage · dispersive   |
+| Spring  | cyan    | classic · long tank · dispersive  |
 | Shimmer | yellow  | octave up · octave down (Abyss)   |
 | Cloud   | magenta | granular over an FDN tank         |
 | Ambient | red     | modulated Hadamard FDN            |
@@ -26,10 +26,12 @@ of the family colour, and a fourth step is not readable against off.
 
 The chamber runs a Moorer early-reflection tap bank and feeds the tank from the
 taps rather than from the input, so each tap seeds the tank and the density
-builds without the reflections reading as discrete echoes.
-
-The modal springs/plates are resonator banks at the physical eigenmodes; the
-dispersive ones use stretched-allpass chains for the characteristic chirp.
+builds without the reflections reading as discrete echoes. The vintage plate
+holds its high-frequency decay near a second whatever the decay knob does, as a
+steel plate does. The long tank spreads its three spring delays while keeping
+their chirp cutoffs together — the inverse of the short tank — and scatters at
+the mid-point coupling ring. The dispersive voices use stretched-allpass chains
+for the chirp.
 
 ## Tail effects
 

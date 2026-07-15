@@ -19,8 +19,8 @@ namespace {
 // shade of the family colour and a 4th step is not readable against off.
 constexpr int ROOM_MODEL [6][3] = {
    { 0, 11,  0 },   // Hall    : hall, chamber (early reflections)
-   { 1,  9, 10 },   // Plate   : Dattorro, Modal, Dispersive
-   { 5,  7,  8 },   // Spring  : classic,  Modal, Dispersive
+   { 1,  9, 10 },   // Plate   : Dattorro, vintage, dispersive
+   { 5,  7,  8 },   // Spring  : classic,  long tank, dispersive
    { 2,  6,  2 },   // Shimmer : up, Abyss (down)
    { 3,  3,  3 },   // Cloud
    { 4,  4,  4 },   // Ambient
