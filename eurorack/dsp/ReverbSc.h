@@ -1,6 +1,10 @@
 /*****************************************************************************
 
-     ReverbSc.h (local copy)
+     ReverbSc.h
+     Copyright (c) 2017 Raphael DINGE
+
+     Vendored from eurorack-blocks (samples/dsp), MIT licensed. Kept here so
+     the DSP builds standalone; see THIRD-PARTY.md.
 
 *Tab=3***********************************************************************/
 
