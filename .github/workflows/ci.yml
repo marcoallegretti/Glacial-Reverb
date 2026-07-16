@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+# These two jobs need nothing but committed files — no eurorack-blocks, no
+# hardware, no secrets. They are the checks that were proven to pass locally
+# before this workflow was written.
+
+jobs:
+  dsp:
+    name: DSP smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and sweep every room x tail for NaN / overshoot
+        run: |
+          g++ -std=c++17 -O2 -Wall -Wextra -Wpedantic -Werror -Wsuggest-override \
+              -D_GLIBCXX_ASSERTIONS \
+              -I ci -I eurorack -I eurorack/dsp \
+              ci/dsp_smoke.cpp \
+              eurorack/GlacialReverbDsp.cpp \
+              eurorack/dsp/ReverbSc.cpp \
+              eurorack/dsp/GainRamp.cpp \
+              -o dsp_smoke
+          ./dsp_smoke
+
+  hardware:
+    name: KiCad DRC
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/kicad/kicad:nightly
+      options: --user root   # the image runs as uid 1000; checkout needs write access to /__w
+    steps:
+      - uses: actions/checkout@v4
+      # The boards are KiCad 10 (file version 20260206), so the container must be
+      # KiCad >= 10 or it will refuse to open them. 'nightly' tracks the newest
+      # release line; pin to '10.0' once that tag is published. Never "fix" a
+      # version-rejection by editing the boards -- the front PCB is frozen.
+      - name: DRC — front PCB
+        run: |
+          kicad-cli pcb drc --exit-code-violations --severity-error \
+            -o front-drc.json eurorack/artifacts/hardware/GlacialReverb.kicad_pcb
+      - name: DRC — panel
+        run: |
+          kicad-cli pcb drc --exit-code-violations --severity-error \
+            -o panel-drc.json eurorack/artifacts/hardware/GlacialReverb.panel.kicad_pcb
+      - name: Upload DRC reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: drc-reports
+          path: "*-drc.json"
