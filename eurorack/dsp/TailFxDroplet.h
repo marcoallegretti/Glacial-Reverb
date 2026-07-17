@@ -78,7 +78,6 @@ private:
       return b [rp];
    }
 
-   float          _sr;
    erb::SdramPtr<Buffers> _buf;
    float          _amount = 0.f, _fb = 0.5f, _lp_l = 0.f, _lp_r = 0.f;
    int            _wp = 0;
@@ -89,9 +88,9 @@ private:
 };
 
 inline TailFxDroplet::TailFxDroplet (float sample_freq)
-:  _sr (sample_freq)
-,  _buf (erb::make_sdram<Buffers> ())
+:  _buf (erb::make_sdram<Buffers> ())
 {
+   (void) sample_freq;
    reset ();
 }
 

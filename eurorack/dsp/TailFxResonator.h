@@ -74,7 +74,6 @@ private:
       return y - in;
    }
 
-   float          _sr;
    erb::SdramPtr<Buffers> _buf;
    float          _amount = 0.f, _fb = 0.9f;
    float          _lp_l [NC] {}, _lp_r [NC] {};
@@ -85,9 +84,9 @@ private:
 };
 
 inline TailFxResonator::TailFxResonator (float sample_freq)
-:  _sr (sample_freq)
-,  _buf (erb::make_sdram<Buffers> ())
+:  _buf (erb::make_sdram<Buffers> ())
 {
+   (void) sample_freq;
    reset ();
 }
 
