@@ -9,11 +9,19 @@ on:
 #   * hardware  — gerbers (front + panel), BOM, kivu12 fab set, and PDF/SVG
 #                 renders of both boards. Built from committed files only, so
 #                 this job is reliable and was proven locally.
-#   * vcv       — the VCV Rack plugin for Windows and macOS, built with erbb.
-#                 The erbb recipe mirrors eurorack-blocks' own CI, but this
-#                 project has never been built on a runner: the first tag is
-#                 its shakedown. If a vcv job fails, the release still ships the
-#                 hardware bundle.
+#   * vcv       — the VCV Rack plugin for Windows, macOS (Intel + Apple
+#                 Silicon), and Linux, built with erbb. Each runner builds its
+#                 own architecture natively, so there is no cross-compilation:
+#                   * windows-2022    -> win-x64
+#                   * macos-15-intel  -> mac-x64   (Apple dropped macos-13)
+#                   * macos-15        -> mac-arm64
+#                   * ubuntu-latest   -> lin-x64
+#                 The ohmtech vcv-rack-sdk submodule ships a prebuilt libRack
+#                 for every one of these OS/CPU pairs, so the same erbb recipe
+#                 works everywhere. The erbb recipe mirrors eurorack-blocks' own
+#                 CI. If a vcv job fails, the release still ships the hardware
+#                 bundle (fail-fast is off, so one platform dropping out does
+#                 not sink the others).
 #
 # erbb build simulator / firmware never touch the hardware files, so the
 # committed front PCB stays byte-identical; the broken `erbb build hardware`
@@ -64,8 +72,12 @@ jobs:
         include:
           - os: windows-2022
             asset: GlacialReverb-vcv-win-x64
-          - os: macos-13
+          - os: macos-15-intel
             asset: GlacialReverb-vcv-mac-x64
+          - os: macos-15
+            asset: GlacialReverb-vcv-mac-arm64
+          - os: ubuntu-latest
+            asset: GlacialReverb-vcv-lin-x64
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -87,6 +99,15 @@ jobs:
       - name: Install VCV Rack (macOS)
         if: runner.os == 'macOS'
         run: brew install --cask vcv-rack
+      # libRack.so (lin-x64) records libGL/libGLU as NEEDED, so the plugin link
+      # step needs the Mesa dev libs on PATH. Plain `erbb setup` skips apt unless
+      # --with-apt is passed, and we don't want the heavy KiCad/ARM toolchain it
+      # would pull in, so install just these two here.
+      - name: Install build deps (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libglu1-mesa-dev libgl1-mesa-dev
       # install.py writes erbb's location into the login profile. It must be its
       # OWN step: erbb only lands on PATH when the next `bash -l` re-sources the
       # profile, so anything in the same run-block still sees "command not found".
