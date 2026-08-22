@@ -1,0 +1,6 @@
+(fp_lib_table
+  (lib (name Socket_DaisyPatchSm)(type KiCad)(uri ${KIPRJMOD}/lib/Socket_DaisyPatchSm.pretty)(options "")(descr ""))
+  (lib (name Logo_Erb)(type KiCad)(uri ${KIPRJMOD}/lib/Logo_Erb.pretty)(options "")(descr ""))
+  (lib (name Empty)(type KiCad)(uri ${KIPRJMOD}/lib/Empty.pretty)(options "")(descr ""))
+  (lib (name JlcPcbToolingHole)(type KiCad)(uri ${KIPRJMOD}/lib/JlcPcbToolingHole.pretty)(options "")(descr ""))
+)
