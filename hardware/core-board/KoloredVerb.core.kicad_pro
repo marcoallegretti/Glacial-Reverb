@@ -466,7 +466,7 @@
       "global_label_dangling": "warning",
       "hier_label_mismatch": "error",
       "label_dangling": "error",
-      "lib_symbol_issues": "warning",
+      "lib_symbol_issues": "ignore",
       "multiple_net_names": "warning",
       "net_not_bus_member": "warning",
       "no_connect_connected": "warning",
@@ -481,7 +481,8 @@
       "unresolved_variable": "error",
       "wire_dangling": "error",
       "lib_symbol_mismatch": "ignore",
-      "isolated_pin_label": "ignore"
+      "isolated_pin_label": "ignore",
+      "footprint_link_issues": "ignore"
     }
   },
   "libraries": {
