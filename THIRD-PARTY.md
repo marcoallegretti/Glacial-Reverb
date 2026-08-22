@@ -46,9 +46,17 @@ Both halves reach this project, and they are not the same licence:
 
 ### kivu12 carrier board — part of eurorack-blocks (CC BY-SA 4.0, hardware)
 
-Not designed here. `hardware/core-board/reference-kivu12/` holds JLCPCB ordering
-files *derived* from the framework's own fab set — rows removed, no values
-edited. See that directory's README.
+**`hardware/core-board/` is an adaptation of the eurorack-blocks kivu12 rev7**,
+by Raphael Dinge, used under CC BY-SA 4.0 and shared under the same licence.
+
+Modified: parts this module does not use were removed (the second CD4051 and
+CD4021 with their front ends, the CV-pitch conditioning block, the microSD block
+and eleven LED resistors), CI1/CI2 were hard-wired to the ADC in place of the
+jumpers, two freed Daisy inputs were tied to GND, and the eurorack-blocks logo
+was removed from the silkscreen. The remaining routing is the original author's.
+
+`hardware/core-board/reference-kivu12/` holds JLCPCB ordering files *derived*
+from the framework's own fab set — rows removed, no values edited.
 
 ### Daisy Patch SM / libDaisy — Electrosmith
 

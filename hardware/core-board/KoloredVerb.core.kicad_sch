@@ -2431,22 +2431,6 @@
     (pin "1" (uuid c4b5abfd-3c97-4c90-b8d4-4b9bfa286e6e))
   )
 
-  (symbol (lib_id "Mechanical:MountingHole") (at 251.46 91.44 0) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid 00000000-0000-0000-0000-0000609ea577)
-    (property "Reference" "H1" (id 0) (at 254 90.2716 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "ERB LOGO" (id 1) (at 254 92.583 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Logo_Erb:ErbLog.15mm" (id 2) (at 251.46 91.44 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 251.46 91.44 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
 
   (symbol (lib_id "power:GND") (at 107.95 175.26 90) (unit 1)
     (in_bom yes) (on_board yes)
@@ -3719,9 +3703,6 @@
     )
     (path "/00000000-0000-0000-0000-000061b3f7c3"
       (reference "Dummy5") (unit 1) (value "Big Pin Header") (footprint "Empty:Empty")
-    )
-    (path "/00000000-0000-0000-0000-0000609ea577"
-      (reference "H1") (unit 1) (value "ERB LOGO") (footprint "Logo_Erb:ErbLog.15mm")
     )
     (path "/c55c6a2b-7145-443e-a402-9d8950328d23"
       (reference "H2") (unit 1) (value "ToolingHole") (footprint "JlcPcbToolingHole:JlcPcbToolingHole")
