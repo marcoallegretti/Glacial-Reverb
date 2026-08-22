@@ -1,6 +1,6 @@
 # Third-party code and licences
 
-GlacialReverb is not standalone work. What follows is what it stands on, who owns
+KoloredVerb is not standalone work. What follows is what it stands on, who owns
 it, and what that obliges us to do. Each entry was traced to a file in this
 repository or in `deps/`, not assumed.
 
@@ -39,14 +39,14 @@ Both halves reach this project, and they are not the same licence:
 
 - **Software (MIT)** — `erb::SdramPtr`, the `.erbui` code generators, the block
   library, the VCV Rack and Daisy build targets.
-- **Hardware (CC BY-SA 4.0)** — the front PCB and panel are generated from
+- **Hardware (CC BY-SA 4.0)** — the control board and panel are generated from
   eurorack-blocks blocks and the kivu12 board. **ShareAlike is copyleft**: the
-  boards in `eurorack/artifacts/hardware/` carry BY-SA obligations regardless of
+  boards in `hardware/` carry BY-SA obligations regardless of
   the licence chosen for the software.
 
 ### kivu12 carrier board — part of eurorack-blocks (CC BY-SA 4.0, hardware)
 
-Not designed here. `eurorack/artifacts/hardware/kivu12/` holds JLCPCB ordering
+Not designed here. `hardware/core-board/reference-kivu12/` holds JLCPCB ordering
 files *derived* from the framework's own fab set — rows removed, no values
 edited. See that directory's README.
 

@@ -23,7 +23,7 @@ jobs:
               -D_GLIBCXX_ASSERTIONS \
               -I ci -I eurorack -I eurorack/dsp \
               ci/dsp_smoke.cpp \
-              eurorack/GlacialReverbDsp.cpp \
+              eurorack/KoloredVerbDsp.cpp \
               eurorack/dsp/ReverbSc.cpp \
               eurorack/dsp/GainRamp.cpp \
               -o dsp_smoke
@@ -40,18 +40,28 @@ jobs:
       # The boards are KiCad 10 (file version 20260206), so the container must be
       # KiCad >= 10 or it will refuse to open them. 'nightly' tracks the newest
       # release line; pin to '10.0' once that tag is published. Never "fix" a
-      # version-rejection by editing the boards -- the front PCB is frozen.
-      - name: DRC — front PCB
+      # version-rejection by editing the boards -- the control board is frozen.
+      - name: DRC — core board
         run: |
-          kicad-cli pcb drc --exit-code-violations --severity-error \
-            -o front-drc.json eurorack/artifacts/hardware/GlacialReverb.kicad_pcb
+          kicad-cli pcb drc --exit-code-violations --severity-all \
+            -o core-drc.json hardware/core-board/KoloredVerb.core.kicad_pcb
+      - name: DRC — control board
+        run: |
+          kicad-cli pcb drc --exit-code-violations --severity-all \
+            -o control-drc.json hardware/control-board/KoloredVerb.kicad_pcb
       - name: DRC — panel
         run: |
-          kicad-cli pcb drc --exit-code-violations --severity-error \
-            -o panel-drc.json eurorack/artifacts/hardware/GlacialReverb.panel.kicad_pcb
-      - name: Upload DRC reports
+          kicad-cli pcb drc --exit-code-violations --severity-all \
+            -o panel-drc.json hardware/panel-board/KoloredVerb.panel.kicad_pcb
+      - name: ERC — core board
+        run: |
+          kicad-cli sch erc --exit-code-violations --severity-all \
+            -o core-erc.json hardware/core-board/KoloredVerb.core.kicad_sch
+      - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: drc-reports
-          path: "*-drc.json"
+          name: drc-erc-reports
+          path: |
+            *-drc.json
+            *-erc.json

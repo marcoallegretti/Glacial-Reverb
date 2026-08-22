@@ -1,8 +1,8 @@
-# GlacialReverb
+# Koloured-Verb
 
-A 12 HP Eurorack stereo reverb built on a Daisy Patch SM mounted on a kivu12
-carrier board, using the [eurorack-blocks](https://github.com/ohmtech-rdi/eurorack-blocks)
-framework.
+A 12 HP Eurorack stereo reverb built on a Daisy Patch SM, using the
+[eurorack-blocks](https://github.com/ohmtech-rdi/eurorack-blocks) framework.
+Three boards: a carrier for the Daisy, a control board, and the panel.
 
 Twelve reverb voices grouped into six families, ten post-reverb tail effects
 grouped into five families, and a freeze pad with ducking.
@@ -76,12 +76,20 @@ silent, so the tail carries across and the ROOM trigger can be clocked.
 
 ```
 eurorack/
-  GlacialReverb.erbui        panel and control definition
-  GlacialReverb.{h,cpp}      UI glue: selectors, gestures, LEDs
-  GlacialReverbDsp.{h,cpp}   freeze pad, duck, mix, pre-delay wrapper
+  KoloredVerb.erbui          panel and control definition
+  KoloredVerb.{h,cpp}        UI glue: selectors, gestures, LEDs
+  KoloredVerbDsp.{h,cpp}     freeze pad, duck, mix, pre-delay wrapper
   dsp/                       reverb models, tail effects, shared DSP
-  artifacts/hardware/        gerbers, BOM, panel, front PCB
+
+hardware/
+  core-board/                carrier: Daisy Patch SM, power, I/O expansion
+  control-board/             pots, jacks, buttons, LEDs
+  panel-board/               12 HP front panel
 ```
+
+Each board folder holds its KiCad sources and a `fab/` directory with the
+gerber zip and loose gerber set. See [hardware/README.md](hardware/README.md)
+for the stack and what mates to what.
 
 ## Building
 

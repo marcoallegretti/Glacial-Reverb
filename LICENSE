@@ -1,17 +1,17 @@
-GlacialReverb
+Koloured-Verb
 Copyright (c) 2026 Marco Allegretti
 
 The original work in this repository — the reverb DSP (eurorack/dsp/ and
-eurorack/GlacialReverbDsp.*), the module firmware and the build/ordering
+eurorack/KoloredVerbDsp.*), the module firmware and the build/ordering
 tooling — is licensed under the European Union Public Licence v. 1.2 (EUPL-1.2),
 whose full text follows.
 
 This does NOT cover, and the EUPL does not override:
 
   * eurorack/dsp/ReverbSc.{h,cpp} — MIT, (c) 2017 Raphael Dinge (vendored).
-  * The hardware in eurorack/artifacts/ — front PCB, panel and kivu12 fab set
-    derive from eurorack-blocks and are under CC BY-SA 4.0 (ShareAlike), not the
-    EUPL. A software licence does not relicense the boards.
+  * The hardware in hardware/ — control board, panel and the kivu12-derived
+    core board derive from eurorack-blocks and are under CC BY-SA 4.0
+    (ShareAlike), not the EUPL. A software licence does not relicense the boards.
 
 See THIRD-PARTY.md for the full provenance and obligations.
 

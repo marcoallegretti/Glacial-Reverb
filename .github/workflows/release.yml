@@ -6,9 +6,8 @@ on:
   workflow_dispatch:
 
 # Produces a downloadable bundle so a tester needs to compile nothing:
-#   * hardware  — gerbers (front + panel), BOM, kivu12 fab set, and PDF/SVG
-#                 renders of both boards. Built from committed files only, so
-#                 this job is reliable and was proven locally.
+#   * hardware  — gerbers, BOMs and assembly files for all three boards, plus
+#                 PDF/SVG renders. Built from committed files only.
 #   * vcv       — the VCV Rack plugin for Windows, macOS (Intel + Apple
 #                 Silicon), and Linux, built with erbb. Each runner builds its
 #                 own architecture natively, so there is no cross-compilation:
@@ -24,7 +23,7 @@ on:
 #                 not sink the others).
 #
 # erbb build simulator / firmware never touch the hardware files, so the
-# committed front PCB stays byte-identical; the broken `erbb build hardware`
+# committed control board stays byte-identical; the broken `erbb build hardware`
 # (KiCad-6 parser vs the KiCad-10 board) is never invoked.
 
 permissions:
@@ -39,26 +38,28 @@ jobs:
       options: --user root   # the image runs as uid 1000; checkout needs write access to /__w
     steps:
       - uses: actions/checkout@v4
-      - name: Render both boards to PDF and SVG
+      - name: Render the boards to PDF and SVG
         run: |
           mkdir -p out/hardware/render
-          H=eurorack/artifacts/hardware
-          for board in GlacialReverb GlacialReverb.panel; do
+          for spec in core-board/KoloredVerb.core control-board/KoloredVerb panel-board/KoloredVerb.panel; do
+            board=$(basename "$spec")
             kicad-cli pcb export pdf \
               --layers F.Cu,B.Cu,F.Silkscreen,B.Silkscreen,Edge.Cuts \
-              -o "out/hardware/render/${board}.pdf" "$H/${board}.kicad_pcb"
+              -o "out/hardware/render/${board}.pdf" "hardware/${spec}.kicad_pcb"
             kicad-cli pcb export svg --page-size-mode 2 \
               --layers F.Cu,B.Cu,F.Silkscreen,B.Silkscreen,Edge.Cuts \
-              -o "out/hardware/render/${board}.svg" "$H/${board}.kicad_pcb"
+              -o "out/hardware/render/${board}.svg" "hardware/${spec}.kicad_pcb"
           done
       - name: Gather fab deliverables
         run: |
-          H=eurorack/artifacts/hardware
-          cp "$H/GlacialReverb.gerber.zip"        out/hardware/
-          cp "$H/GlacialReverb.panel.gerber.zip"  out/hardware/
-          cp "$H/GlacialReverb.bom.csv"           out/hardware/
-          cp -r "$H/kivu12"                       out/hardware/kivu12
-          cp BUILD.md THIRD-PARTY.md              out/hardware/
+          cp hardware/core-board/fab/KoloredVerb.core.gerber.zip        out/hardware/
+          cp hardware/core-board/fab/KoloredVerb.core-jlcpcb-bom.csv    out/hardware/
+          cp hardware/core-board/fab/KoloredVerb.core-jlcpcb-cpl.csv    out/hardware/
+          cp hardware/core-board/KoloredVerb.core.bom.csv               out/hardware/
+          cp hardware/control-board/fab/KoloredVerb.gerber.zip          out/hardware/
+          cp hardware/control-board/KoloredVerb.bom.csv                 out/hardware/
+          cp hardware/panel-board/fab/KoloredVerb.panel.gerber.zip      out/hardware/
+          cp hardware/README.md BUILD.md THIRD-PARTY.md LICENSE        out/hardware/
       - uses: actions/upload-artifact@v4
         with:
           name: hardware
@@ -71,13 +72,13 @@ jobs:
       matrix:
         include:
           - os: windows-2022
-            asset: GlacialReverb-vcv-win-x64
+            asset: KoloredVerb-vcv-win-x64
           - os: macos-15-intel
-            asset: GlacialReverb-vcv-mac-x64
+            asset: KoloredVerb-vcv-mac-x64
           - os: macos-15
-            asset: GlacialReverb-vcv-mac-arm64
+            asset: KoloredVerb-vcv-mac-arm64
           - os: ubuntu-latest
-            asset: GlacialReverb-vcv-lin-x64
+            asset: KoloredVerb-vcv-lin-x64
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -125,6 +126,17 @@ jobs:
         run: |
           erbb configure
           erbb build simulator --configuration release
+      # erbb rewrites plugin.json from a hardcoded framework identity on every
+      # build -- slug "ErbPlugin*", brand "Erb", ohmtech URLs, license
+      # "proprietary" -- so ours has to be stamped on afterwards rather than
+      # committed. The module slug is deliberately left alone: it must keep
+      # matching the string plugin_vcvrack.cpp hands to rack::createModel.
+      - name: Stamp the VCV manifest
+        working-directory: project
+        run: |
+          V="${{ github.ref_name }}"
+          case "$V" in v[0-9]*) ARG="--version $V" ;; *) ARG="" ;; esac
+          python3 ci/vcv_manifest.py $ARG $(find eurorack/artifacts -name plugin.json)
       - name: Collect the plugin
         run: |
           mkdir -p out
@@ -159,7 +171,7 @@ jobs:
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          name: GlacialReverb ${{ github.ref_name }}
+          name: Koloured-Verb ${{ github.ref_name }}
           generate_release_notes: true
           fail_on_unmatched_files: false
           files: rel/*.zip

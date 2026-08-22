@@ -7,7 +7,7 @@
 
 *Tab=3***********************************************************************/
 
-#include "GlacialReverbDsp.h"
+#include "KoloredVerbDsp.h"
 
 #include <cmath>
 #include <cstdio>
@@ -28,10 +28,10 @@ int main ()
    int fails = 0;
    double worst = 0.0;
 
-   for (int m = 0; m < GlacialReverbDsp::nbr_models; ++m)
-   for (int t = 0; t < GlacialReverbDsp::nbr_tail_fx; ++t)
+   for (int m = 0; m < KoloredVerbDsp::nbr_models; ++m)
+   for (int t = 0; t < KoloredVerbDsp::nbr_tail_fx; ++t)
    {
-      GlacialReverbDsp d (SR);
+      KoloredVerbDsp d (SR);
       d.set_fx_type (m);
       d.set_tail_fx (t);
       d.set_mix (1.f); d.set_decay (1.f); d.set_fx (1.f);
@@ -65,6 +65,6 @@ int main ()
    }
 
    std::printf ("%d x %d pairs swept  worst peak %.4f  fails %d\n",
-                GlacialReverbDsp::nbr_models, GlacialReverbDsp::nbr_tail_fx, worst, fails);
+                KoloredVerbDsp::nbr_models, KoloredVerbDsp::nbr_tail_fx, worst, fails);
    return fails ? 1 : 0;
 }
