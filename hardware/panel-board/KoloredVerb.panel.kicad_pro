@@ -92,7 +92,9 @@
         "via_dangling": "warning",
         "zone_has_empty_net": "error",
         "zones_intersect": "error",
-        "isolated_copper": "ignore"
+        "isolated_copper": "ignore",
+        "lib_footprint_issues": "ignore",
+        "lib_footprint_mismatch": "ignore"
       },
       "rules": {
         "allow_blind_buried_vias": false,

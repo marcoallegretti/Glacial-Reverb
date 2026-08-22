@@ -106,6 +106,10 @@ def restore_project_rules():
     rules = data.setdefault("board", {}).setdefault("design_settings", {}) \
                 .setdefault("rule_severities", {})
     rules["isolated_copper"] = "ignore"
+    # footprints are embedded in the board, so a CI container without the
+    # Local library resolved still fabricates correctly
+    rules["lib_footprint_issues"] = "ignore"
+    rules["lib_footprint_mismatch"] = "ignore"
     with io.open(PROJECT, "w", encoding="utf-8", newline="\n") as f:
         json.dump(data, f, indent=2)
 
