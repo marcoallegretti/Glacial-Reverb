@@ -1,9 +1,9 @@
-References;Description;Remarks;Quantity;Distributor;Distributor Part Number;Distributor Part URL
+﻿References;Description;Remarks;Quantity;Distributor;Distributor Part Number;Distributor Part URL
 ZZ1;CONN HEADER VERT 12POS 2.54MM;;1;Digikey;S1011E-12-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC12SAAN/859633
 ZZ3, ZZ4, ZZ7, ZZ12;CONN HEADER VERT 8POS 2.54MM;;4;Digikey;S1011E-08-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC08SAAN/859629
 J11, J9;CONN HEADER VERT 2POS 2.54MM;;2;Digikey;S1011E-02-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC02SAAN/859623
 J6;CONN HEADER VERT 4POS 2.54MM;;1;Digikey;S1011E-04-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC04SAAN/859625
-ZZ10;CONN HEADER VERT 6POS 2.54MM;;1;Digikey;S1011E-06-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC06SAAN/859627
+ZZ10;CONN HEADER VERT 6POS 2.54MM;DNP - the core board has no microSD, so this header has no mating socket. Fitting it leaves 6 pins in the gap above the core board.;0;Digikey;S1011E-06-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC06SAAN/859627
 ZZ2;CONN HEADER VERT 9POS 2.54MM;;1;Digikey;S1011E-09-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC09SAAN/859630
 ZZ5;CONN HEADER VERT 10POS 2.54MM;;1;Digikey;PBC10SAAN;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC10SAAN/859631
 RV1, RV2, RV3, RV4, RV5, RV6, RV7;ALPHA 9MM POTS – VERTICAL D-SHAFT;;7;Thonk;RD901F-B100K;https://www.thonk.co.uk/shop/alpha-9mm-pots-dshaft/
