@@ -1,0 +1,6 @@
+# Fabrication deliverables must reach the fab byte for byte. JLCPCB's BOM and
+# CPL uploader expects the CRLF the framework's own fab set uses.
+hardware/**/*.csv    -text
+hardware/**/*.gbr    -text
+hardware/**/*.gbrjob -text
+hardware/**/*.drl    -text
