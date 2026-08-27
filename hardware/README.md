@@ -26,12 +26,6 @@ assembly.
 `ZZ10` on the control board is **DNP** — the core board carries no microSD, so
 that header has no mating socket.
 
-**The control board is one revision behind the `.erbui`.** The fourth jack on the
-CV row is now a DECAY CV input reading `CI4`, but on this board `J5` still runs
-to `B5`, a gate channel, and `CI4` reaches only `ZZ2.5` with no jack on it. The
-core board already carries `CI4` end to end (`J2.5` to Daisy `C8`), so the fix is
-one net on the control board: move `J5.T` from `B5` to `CI4`.
-
 ## Gerbers
 
 ```sh
