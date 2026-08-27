@@ -118,11 +118,10 @@ module KoloredVerb {
       label "MIX"
    }
 
-   // ROOM-advance trigger (rising edge steps the room family)
-   control tank_gate GateIn {
+   control decay_cv CvIn {
       position 9.75hp, 97.5mm
       style knurled
-      label "ROOM"
+      label "DECAY"
    }
 
    // Row 5: audio I/O aligned under CV jacks: IN L, IN R, OUT L, OUT R

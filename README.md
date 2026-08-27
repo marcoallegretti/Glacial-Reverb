@@ -62,15 +62,14 @@ added over the untouched tail, so amount 0 is a true bypass.
 | ROOM btn  | Short = room family · long = variant                            |
 | FX btn    | Short = effect family · long = variant                          |
 | FRZ G     | Gate: forces freeze on                                          |
-| ROOM      | Trigger: advances the room family                               |
-| FX / FRZ LV / MIX | CV over the corresponding pot                           |
+| FX / FRZ LV / MIX / DECAY | CV over the corresponding pot                   |
 | IN L/R    | Audio in (R normalled to L)                                     |
 | OUT L/R   | Audio out                                                       |
 
 CV drives continuous character; the buttons handle discrete structure. Room and
 effect selection step discretely rather than sweeping: a switch renders both
 voices through a 150 ms crossfade and clears the outgoing one only once it is
-silent, so the tail carries across and the ROOM trigger can be clocked.
+silent, so the tail carries across a switch.
 
 ## Layout
 

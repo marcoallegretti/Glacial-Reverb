@@ -35,9 +35,6 @@ struct KoloredVerb
    float room_hold_s     = 0.f;  bool room_long_fired   = false;
    float fx_hold_s       = 0.f;  bool fx_long_fired     = false;
 
-   // ROOM-advance trigger input (repurposed tank_gate): edge detect
-   bool  room_gate_prev  = false;
-
    float led_s        = 0.f;   // free-running LED timer
    bool  fx_led_init  = false;
 

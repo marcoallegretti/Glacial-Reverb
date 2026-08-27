@@ -73,7 +73,7 @@ void  KoloredVerb::process ()
    if (mix < 0.f) mix = 0.f;
    dsp.set_mix (mix);
 
-   float decay = float (ui.decay_pot);
+   float decay = float (ui.decay_pot) + 0.5f * float (ui.decay_cv);
    if (decay > 1.f) decay = 1.f;
    if (decay < 0.f) decay = 0.f;
    dsp.set_decay (decay);
@@ -122,18 +122,6 @@ void  KoloredVerb::process ()
       room_family = (room_family + 1) % 6;
       room_variant = 0;
       dsp.set_fx_type (ROOM_MODEL [room_family][room_variant]);
-   }
-
-   // ROOM-advance trigger (repurposed tank_gate): rising edge = next family
-   {
-      bool rg = bool (ui.tank_gate);
-      if (rg && ! room_gate_prev)
-      {
-         room_family = (room_family + 1) % 6;
-         room_variant = 0;
-         dsp.set_fx_type (ROOM_MODEL [room_family][room_variant]);
-      }
-      room_gate_prev = rg;
    }
 
    // TailFX selector (tank_button): short = next family, long = next variant.
