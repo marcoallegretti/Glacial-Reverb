@@ -6,6 +6,9 @@
 /eurorack/artifacts/
 /eurorack/.vscode/
 
+# Third-party datasheet PDFs, synced locally for verification
+/hardware/*/datasheets/
+
 # KiCad local state and editor backups (hardware/ itself is tracked)
 *.kicad_prl
 /hardware/.history/

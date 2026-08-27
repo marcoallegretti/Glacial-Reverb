@@ -21452,17 +21452,6 @@
 			)
 		)
 	)
-	(gr_text "github.com/ohmtech-rdi/eurorack-blocks"
-		(at 18.28 90.272 0)
-		(layer "F.SilkS")
-		(uuid "ef669bae-d3fc-4864-a004-f0b32db74d2c")
-		(effects
-			(font
-				(size 1 0.8)
-				(thickness 0.15)
-			)
-		)
-	)
 	(gr_text "L7"
 		(at 19.55 12.675 0)
 		(layer "F.SilkS")
@@ -21562,17 +21551,6 @@
 			)
 		)
 	)
-	(gr_text "Back\neMMC"
-		(at 53.205 82.906 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060970b90")
-		(effects
-			(font
-				(size 1 0.8)
-				(thickness 0.15)
-			)
-		)
-	)
 	(gr_text "L15"
 		(at 53.84 12.675 0)
 		(layer "F.SilkS")
@@ -21593,29 +21571,6 @@
 				(size 1 0.8)
 				(thickness 0.15)
 			)
-		)
-	)
-	(gr_text "Front\nSD"
-		(at 57.269 82.906 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-0000608e91d2")
-		(effects
-			(font
-				(size 1 0.8)
-				(thickness 0.15)
-			)
-		)
-	)
-	(gr_text "SD"
-		(at 55.11 59.03 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060d5bbcb")
-		(effects
-			(font
-				(size 1 0.8)
-				(thickness 0.15)
-			)
-			(justify right)
 		)
 	)
 	(gr_text "P1"
@@ -21786,78 +21741,6 @@
 			(justify right)
 		)
 	)
-	(gr_text "D1"
-		(at 57.65 59.03 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060d5bbd4")
-		(effects
-			(font
-				(size 1 0.8)
-				(thickness 0.15)
-			)
-			(justify right)
-		)
-	)
-	(gr_text "D0"
-		(at 57.65 61.57 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060d5bbd1")
-		(effects
-			(font
-				(size 1 0.8)
-				(thickness 0.15)
-			)
-			(justify right)
-		)
-	)
-	(gr_text "CLK"
-		(at 57.65 64.11 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060d5bbce")
-		(effects
-			(font
-				(size 1 0.8)
-				(thickness 0.15)
-			)
-			(justify right)
-		)
-	)
-	(gr_text "CMD"
-		(at 57.65 66.65 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060d5bbc2")
-		(effects
-			(font
-				(size 1 0.8)
-				(thickness 0.15)
-			)
-			(justify right)
-		)
-	)
-	(gr_text "D3"
-		(at 57.65 69.19 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060d5bbc5")
-		(effects
-			(font
-				(size 1 0.8)
-				(thickness 0.15)
-			)
-			(justify right)
-		)
-	)
-	(gr_text "D2"
-		(at 57.65 71.73 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060d5bbc8")
-		(effects
-			(font
-				(size 1 0.8)
-				(thickness 0.15)
-			)
-			(justify right)
-		)
-	)
 	(gr_text "GND"
 		(at 57.65 97.13 0)
 		(layer "F.SilkS")
@@ -21966,55 +21849,7 @@
 			(justify right)
 		)
 	)
-	(gr_text "0..10V"
-		(at 38.219 99.162 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060d66e20")
-		(effects
-			(font
-				(size 1 0.9)
-				(thickness 0.15)
-			)
-			(justify left)
-		)
-	)
-	(gr_text "±5V"
-		(at 38.219 97.638 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060d66e1d")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left)
-		)
-	)
-	(gr_text "CI1"
-		(at 46.22 97.13 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060d65272")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify right)
-		)
-	)
-	(gr_text "CI2"
-		(at 46.22 99.67 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000060d5c67d")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify right)
-		)
-	)
-	(gr_text "rev7"
+	(gr_text "KV core r1"
 		(at 53.5 117.5 0)
 		(layer "F.SilkS")
 		(uuid "00000000-0000-0000-0000-000061b37135")

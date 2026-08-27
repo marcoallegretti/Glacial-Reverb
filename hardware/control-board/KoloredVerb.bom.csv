@@ -1,15 +1,15 @@
-﻿References;Description;Remarks;Quantity;Distributor;Distributor Part Number;Distributor Part URL
-ZZ1;CONN HEADER VERT 12POS 2.54MM;;1;Digikey;S1011E-12-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC12SAAN/859633
-ZZ3, ZZ4, ZZ7, ZZ12;CONN HEADER VERT 8POS 2.54MM;;4;Digikey;S1011E-08-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC08SAAN/859629
-J11, J9;CONN HEADER VERT 2POS 2.54MM;;2;Digikey;S1011E-02-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC02SAAN/859623
-J6;CONN HEADER VERT 4POS 2.54MM;;1;Digikey;S1011E-04-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC04SAAN/859625
-ZZ10;CONN HEADER VERT 6POS 2.54MM;DNP - the core board has no microSD, so this header has no mating socket. Fitting it leaves 6 pins in the gap above the core board.;0;Digikey;S1011E-06-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC06SAAN/859627
-ZZ2;CONN HEADER VERT 9POS 2.54MM;;1;Digikey;S1011E-09-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC09SAAN/859630
-ZZ5;CONN HEADER VERT 10POS 2.54MM;;1;Digikey;PBC10SAAN;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC10SAAN/859631
-RV1, RV2, RV3, RV4, RV5, RV6, RV7;ALPHA 9MM POTS – VERTICAL D-SHAFT;;7;Thonk;RD901F-B100K;https://www.thonk.co.uk/shop/alpha-9mm-pots-dshaft/
-H3, H4, H5, H6, H7, H8, H9;1PS - Small Pointer (D Shaft) - Rogan PT Plastic Knob;;7;Thonk;;https://www.thonk.co.uk/shop/make-noise-mutable-style-knobs/
-J1, J10, J12, J2, J3, J4, J5, J7, J8;Thonkiconn – 3.5mm Jack Sockets;;9;Thonk;PJ398SM;https://www.thonk.co.uk/shop/thonkiconn/
-H10, H11, H12, H13, H14, H15, H16, H17, H18;Knurled Nuts;One nut bag contains already 50 pieces;9;Thonk;;https://www.thonk.co.uk/shop/thonkiconn/
-SW1, SW2, SW3;C&K TACTILE SWITCH;Choose Black;3;Thonk;;https://www.thonk.co.uk/shop/radio-music-switch/
-D1, D3;LED RED DIFFUSED T-1 T/H;;2;Digikey;754-1606-ND;https://www.digikey.com/en/products/detail/kingbright/WP710A10ID/2769809
-D2;LED RGB SMD PLCC4 - Cree CLV1A-FKB (common anode, FX indicator);;1;Digikey;CLV1A-FKB-CJ1M1F1BB7R4S3;https://www.cree.com/led-components/media/documents/CLV1AFKB(874).pdf
+﻿References;Description;MPN;Remarks;Quantity;Distributor;Distributor Part Number;Distributor Part URL
+ZZ1;CONN HEADER VERT 12POS 2.54MM;PBC12SAAN;;1;Digikey;S1011E-12-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC12SAAN/859633
+ZZ3, ZZ4, ZZ7, ZZ12;CONN HEADER VERT 8POS 2.54MM;PBC08SAAN;;4;Digikey;S1011E-08-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC08SAAN/859629
+J11, J9;CONN HEADER VERT 2POS 2.54MM;PBC02SAAN;;2;Digikey;S1011E-02-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC02SAAN/859623
+J6;CONN HEADER VERT 4POS 2.54MM;PBC04SAAN;;1;Digikey;S1011E-04-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC04SAAN/859625
+ZZ10;CONN HEADER VERT 6POS 2.54MM;PBC06SAAN;DNP - the core board has no microSD, so this header has no mating socket. Fitting it leaves 6 pins in the gap above the core board.;0;Digikey;S1011E-06-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC06SAAN/859627
+ZZ2;CONN HEADER VERT 9POS 2.54MM;PBC09SAAN;;1;Digikey;S1011E-09-ND;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC09SAAN/859630
+ZZ5;CONN HEADER VERT 10POS 2.54MM;PBC10SAAN;;1;Digikey;PBC10SAAN;https://www.digikey.de/en/products/detail/sullins-connector-solutions/PBC10SAAN/859631
+RV1, RV2, RV3, RV4, RV5, RV6, RV7;ALPHA 9MM POTS – VERTICAL D-SHAFT;RD901F-40-15R1-B100K;;7;Thonk;RD901F-B100K;https://www.thonk.co.uk/shop/alpha-9mm-pots-dshaft/
+H3, H4, H5, H6, H7, H8, H9;1PS - Small Pointer (D Shaft) - Rogan PT Plastic Knob;Rogan 1PS;;7;Thonk;;https://www.thonk.co.uk/shop/make-noise-mutable-style-knobs/
+J1, J10, J12, J2, J3, J4, J5, J7, J8;Thonkiconn – 3.5mm Jack Sockets;PJ398SM;;9;Thonk;PJ398SM;https://www.thonk.co.uk/shop/thonkiconn/
+H10, H11, H12, H13, H14, H15, H16, H17, H18;Knurled Nuts;PJ398SM nut;One nut bag contains already 50 pieces;9;Thonk;;https://www.thonk.co.uk/shop/thonkiconn/
+SW1, SW2, SW3;C&K TACTILE SWITCH;D6R00 F1 LFS;Choose Black;3;Thonk;;https://www.thonk.co.uk/shop/radio-music-switch/
+D1, D3;LED RED DIFFUSED T-1 T/H;WP710A10ID;;2;Digikey;754-1606-ND;https://www.digikey.com/en/products/detail/kingbright/WP710A10ID/2769809
+D2;LED RGB SMD PLCC4 - Cree CLV1A-FKB (common anode, FX indicator);CLV1A-FKB-CJ1M1F1BB7R4S3;;1;Digikey;CLV1A-FKB-CJ1M1F1BB7R4S3;https://www.cree.com/led-components/media/documents/CLV1AFKB(874).pdf
